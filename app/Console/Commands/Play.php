@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\Flappy;
 use Illuminate\Console\Command;
 
 class Play extends Command
@@ -25,5 +26,6 @@ class Play extends Command
      */
     public function handle()
     {
+        app(Flappy::class)->prompt();
     }
 }
