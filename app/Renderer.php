@@ -27,10 +27,14 @@ class Renderer extends DefaultRenderer
 
     private function renderInfo(Phlappy $phlappy)
     {
+        $altitude = str_pad($phlappy->bird()->altitude(), 10);
+        $row = str_pad($phlappy->bird()->row(), 10);
+        $rateOfClimb = str_pad($phlappy->bird()->rateOfClimb(), 10);
+
         $this->line($this->bgBlue($this->bold(implode('  ', [
-            "Altitude: {$phlappy->bird()->altitude()}",
-            "Row: {$phlappy->bird()->row()}",
-            "Rate Of Climb: {$phlappy->bird()->rateOfClimb()}",
+            "Altitude: {$altitude}",
+            "Row: {$row}",
+            "Rate Of Climb: {$rateOfClimb}",
         ]))));
     }
 }
