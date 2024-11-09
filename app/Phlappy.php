@@ -7,14 +7,14 @@ use Chewie\Concerns\SetsUpAndResets;
 use Chewie\Input\KeyPressListener;
 use Laravel\Prompts\Prompt;
 
-class Flappy extends Prompt
+class Phlappy extends Prompt
 {
     use RegistersRenderers;
     use SetsUpAndResets;
 
     public function __construct(private Bird $bird)
     {
-        $this->registerRenderer(FlappyRenderer::class);
+        $this->registerRenderer(Renderer::class);
 
         $this->setup($this->run(...));
     }

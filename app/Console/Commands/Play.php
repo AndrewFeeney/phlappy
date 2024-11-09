@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Flappy;
+use App\Phlappy;
 use Illuminate\Console\Command;
 
 class Play extends Command
@@ -19,13 +20,13 @@ class Play extends Command
      *
      * @var string
      */
-    protected $description = 'Play flappy';
+    protected $description = 'Play Phlappy';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        app(Flappy::class)->prompt();
+        app(Phlappy::class)->prompt();
     }
 }
