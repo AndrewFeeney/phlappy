@@ -27,9 +27,9 @@ class Phlappy extends Prompt
     public function run()
     {
         $listener = KeyPressListener::for($this)
-            ->on(' ', function () {
-                $this->bird->flap();
-            })
+            ->on(' ', fn () => $this->bird->flap())
+            ->onUp(fn () => $this->bird->ascend())
+            ->onDown(fn () => $this->bird->descend())
             ->listenForQuit();
 
         while (true) {

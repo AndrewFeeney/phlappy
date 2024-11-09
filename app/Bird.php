@@ -5,6 +5,7 @@ namespace App;
 class Bird
 {
     private int $totalWingPhases = 3;
+    private int $altitude = 0;
 
     public function __construct(private int $wingPhase = 1)
     {
@@ -21,9 +22,21 @@ class Bird
         return $birdState;
     }
 
-    public function wingPhase(): int
+    public function ascend()
     {
-        return $this->wingPhase;
+        $this->altitude++;
+        $this->flap();
+    }
+
+    public function descend()
+    {
+        $this->altitude--;
+        $this->flap();
+    }
+
+    public function altitude()
+    {
+        return $this->altitude;
     }
 
     public function flap()
