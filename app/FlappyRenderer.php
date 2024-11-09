@@ -8,7 +8,7 @@ class FlappyRenderer extends Renderer
 {
     public function __invoke(Flappy $prompt): string
     {
-        $this->line('\_o>_/');
+        $this->line($prompt->bird()->render());
 
         return $this;
     }
