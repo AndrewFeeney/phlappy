@@ -42,4 +42,9 @@ class Bird
         $this->rateOfClimb--;
         $this->altitude = max(0, $this->altitude + $this->rateOfClimb);
     }
+
+    public function row()
+    {
+        return (int) ceil($this->altitude / 1000) + 1;
+    }
 }

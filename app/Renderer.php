@@ -12,10 +12,9 @@ class Renderer extends DefaultRenderer
         $width = $prompt->terminal()->cols();
 
         foreach (range($height - 2, 0) as $row) {
-            $birdRow = (int) ceil($prompt->bird()->altitude() / 1000) + 2;
             if ($row === 0) {
                 $this->line("Altitude: {$prompt->bird()->altitude()}    Row: {$birdRow}    Rate Of Climb: {$prompt->bird()->rateOfClimb()}");
-            } else if ($row === $birdRow) {
+            } else if ($row === $prompt->bird()->row()) {
                 $leftPadding = str_repeat(' ', floor(($width - 3) / 2));
                 $this->line($leftPadding . $prompt->bird()->render());
             } else {
