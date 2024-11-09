@@ -16,7 +16,7 @@ class Renderer extends DefaultRenderer
                 $this->renderInfo($prompt);
             } else if ($row === $prompt->bird()->row()) {
                 $leftPadding = str_repeat(' ', floor(($width - 3) / 2));
-                $this->line($leftPadding . $prompt->bird()->render());
+                $this->line($leftPadding . $this->bold($prompt->bird()->render()));
             } else {
                 $this->line(' ');
             }
@@ -27,10 +27,10 @@ class Renderer extends DefaultRenderer
 
     private function renderInfo(Phlappy $phlappy)
     {
-        $this->line(implode('  ', [
+        $this->line($this->bgBlue($this->bold(implode('  ', [
             "Altitude: {$phlappy->bird()->altitude()}",
             "Row: {$phlappy->bird()->row()}",
             "Rate Of Climb: {$phlappy->bird()->rateOfClimb()}",
-        ]));
+        ]))));
     }
 }
