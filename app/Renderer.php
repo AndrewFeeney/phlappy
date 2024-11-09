@@ -2,10 +2,13 @@
 
 namespace App;
 
+use Chewie\Concerns\Aligns;
 use Laravel\Prompts\Themes\Default\Renderer as DefaultRenderer;
 
 class Renderer extends DefaultRenderer
 {
+    use Aligns;
+
     public function __invoke(Phlappy $prompt): string
     {
         $height = $prompt->terminal()->lines();
@@ -15,8 +18,8 @@ class Renderer extends DefaultRenderer
             if ($row === 0) {
                 $this->renderInfo($prompt);
             } else if ($row === $prompt->bird()->row()) {
-                $leftPadding = str_repeat(' ', floor(($width - 3) / 2));
-                $this->line($leftPadding . $this->bold($prompt->bird()->render()));
+                $this->centerHorizontally($prompt->bird()->render(), $width)
+                    ->each($this->line(...));
             } else {
                 $this->line(' ');
             }
