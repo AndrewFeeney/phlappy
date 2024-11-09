@@ -4,34 +4,22 @@ namespace App;
 
 class Bird
 {
-    private int $totalWingPhases = 3;
-    private int $altitude = 0;
+    private int $altitude = 10;
+    private int $rateOfClimb = 0;
 
-    public function __construct(private int $wingPhase = 1)
+    public function __construct()
     {
     }
 
     public function render(): string
     {
-        $birdState = match ($this->wingPhase) {
-            0 => '__o>__',
-            1 => '/\\o>/\\',
-            2 => '¯\\o>/¯',
+        $birdState = match (true) {
+            $this->rateOfClimb > 5 => '__o>__',
+            $this->rateOfClimb > 0 => '/\\o>/\\',
+            $this->rateOfClimb <= 0 => '¯\\o>/¯',
         };
 
         return $birdState;
-    }
-
-    public function ascend()
-    {
-        $this->altitude++;
-        $this->flap();
-    }
-
-    public function descend()
-    {
-        $this->altitude--;
-        $this->flap();
     }
 
     public function altitude()
@@ -39,8 +27,19 @@ class Bird
         return $this->altitude;
     }
 
+    public function rateOfClimb(): int
+    {
+        return $this->rateOfClimb;
+    }
+
     public function flap()
     {
-        $this->wingPhase = ($this->wingPhase + 1) % $this->totalWingPhases;
+        $this->rateOfClimb = 100;
+    }
+
+    public function fall()
+    {
+        $this->rateOfClimb--;
+        $this->altitude = max(0, $this->altitude + $this->rateOfClimb);
     }
 }

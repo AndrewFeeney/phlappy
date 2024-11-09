@@ -28,14 +28,17 @@ class Phlappy extends Prompt
     {
         $listener = KeyPressListener::for($this)
             ->on(' ', fn () => $this->bird->flap())
-            ->onUp(fn () => $this->bird->ascend())
-            ->onDown(fn () => $this->bird->descend())
+            ->onUp(fn () => $this->bird->flap())
             ->listenForQuit();
 
         while (true) {
             $listener->once();
 
+            $this->bird->fall();
+
             $this->render();
+
+            usleep(2_000);
         }
     }
 
