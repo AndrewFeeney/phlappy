@@ -16,7 +16,7 @@ class Renderer extends DefaultRenderer
 
         foreach (range($height - 2, 0) as $row) {
             if ($row === 0) {
-                $this->renderInfo($prompt);
+                $this->renderInfo($prompt, $width);
             } else if ($row === $prompt->bird()->row()) {
                 $this->centerHorizontally($prompt->bird()->render(), $width)
                     ->each($this->line(...));
@@ -28,16 +28,16 @@ class Renderer extends DefaultRenderer
         return $this;
     }
 
-    private function renderInfo(Phlappy $phlappy)
+    private function renderInfo(Phlappy $phlappy, $width)
     {
-        $altitude = str_pad($phlappy->bird()->altitude(), 10);
-        $row = str_pad($phlappy->bird()->row(), 10);
-        $rateOfClimb = str_pad($phlappy->bird()->rateOfClimb(), 10);
+        $altitude = $this->dim(' Altitude: ') . $this->bold($phlappy->bird()->altitude());
+        $row = $this->dim(' Row: ') . $this->bold($phlappy->bird()->row());
+        $rateOfClimb = $this->dim(' Rate of Climb: '). $this->bold($phlappy->bird()->rateOfClimb());
 
-        $this->line($this->bgBlue($this->bold(implode('  ', [
-            "Altitude: {$altitude}",
-            "Row: {$row}",
-            "Rate Of Climb: {$rateOfClimb}",
-        ]))));
+        $this->line($this->bgBlue($this->spaceBetween($width, ...[
+            $altitude,
+            $row,
+            $rateOfClimb,
+        ])));
     }
 }
