@@ -12,7 +12,7 @@ describe("Pane object", function () {
         expect($pane->renderRow(0))->toBe('');
     });
 
-    it("can render an row with a single layer with a single cell", function () {
+    it("can render a row with a single layer with a single cell", function () {
         $cell = new Cell('*');
         $row = new Row(collect([$cell]));
         $layer = new Layer(collect([$row]));
