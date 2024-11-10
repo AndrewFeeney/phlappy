@@ -17,4 +17,9 @@ class Row implements Renderable
     {
         return $this->cells->map->render()->implode('');
     }
+
+    public function cells(): Collection
+    {
+        return $this->cells;
+    }
 }

@@ -22,6 +22,11 @@ class Pane
         return $this->row($rowIndex)->render();
     }
 
+    public function addLayer(Layer $layer)
+    {
+        $this->layers->push($layer);
+    }
+
     private function row(int $rowIndex): Row
     {
         return $this->resolveRows($this->layers->map->row($rowIndex));
@@ -30,7 +35,7 @@ class Pane
     private function resolveRows(Collection $rows)
     {
         return new Row($rows->map(function ($row) {
-            return $row->cells()->orderBy('depth')->first() ?? new EmptyCell();
+            return $row->cells()->sortBy('depth')->first() ?? new EmptyCell();
         }));
     }
 }

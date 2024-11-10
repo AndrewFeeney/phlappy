@@ -2,7 +2,7 @@
 
 namespace App;
 
-class EmptyCell implements Cell
+class EmptyCell implements Renderable
 {
     public function render(): string
     {
