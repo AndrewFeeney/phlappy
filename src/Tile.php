@@ -12,4 +12,9 @@ class Tile
     {
         return $this->character;
     }
+
+    public function isEmpty(): bool
+    {
+        return $this->character === null;
+    }
 }

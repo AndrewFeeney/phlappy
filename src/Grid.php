@@ -17,9 +17,13 @@ class Grid
             foreach (range($startX, $finishX) as $columnIndex) {
                 $character = ' ';
                 foreach ($this->sprites as $sprite) {
-                    $character = $sprite->renderTileAt($columnIndex, $lineIndex);
+                    $tile = $sprite->getTileAt($columnIndex, $lineIndex);
+                    if ($tile->isEmpty()) {
+                        continue;
+                    }
+                    $character = $tile->render();
                 }
-                $line .= $character;
+                $line .= $character ?? ' ';
             }
             $lines[] = $line;
         }

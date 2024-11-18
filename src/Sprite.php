@@ -56,17 +56,7 @@ class Sprite
         $this->yOffset -= $y;
     }
 
-    private function yOffset(int $y = 0)
-    {
-        return $this->yOffset + $y;
-    }
-
-    private function xOffset(int $x = 0)
-    {
-        return $this->xOffset + $x;
-    }
-
-    private function getTileAt(int $x, int $y): Tile
+    public function getTileAt(int $x, int $y): Tile
     {
         if (!$this->lineExists($y)) {
             return $this->getEmptyTile();
@@ -79,6 +69,17 @@ class Sprite
         }
 
         return $line[$this->xOffset($x)];
+    }
+
+
+    private function yOffset(int $y = 0)
+    {
+        return $this->yOffset + $y;
+    }
+
+    private function xOffset(int $x = 0)
+    {
+        return $this->xOffset + $x;
     }
 
     private function getLine(int $y): array
