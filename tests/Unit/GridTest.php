@@ -24,7 +24,7 @@ describe('Render method', function () {
         $grid = new Grid();
         $sprite = new Sprite();
         $sprite->addTile(x: 0, y: 0, character: 'X');
-        $grid->addSprite($sprite);
+        $grid->addRenderable($sprite);
 
         $result = $grid->renderToLines(startX: 0, startY:0, finishX: 0, finishY: 0);
 
@@ -34,7 +34,7 @@ describe('Render method', function () {
     it('can render a 3x3 character sprite on a grid', function () {
         $grid = new Grid();
         $sprite = new Sprite(['ABC', '123']);
-        $grid->addSprite($sprite);
+        $grid->addRenderable($sprite);
 
         $result = $grid->renderToLines(startX: 0, startY:0, finishX: 2, finishY: 1);
 
@@ -45,7 +45,7 @@ describe('Render method', function () {
         $grid = new Grid();
         $sprite = new Sprite(['ABC', '123']);
         $sprite->move(x: 1, y: 1);
-        $grid->addSprite($sprite);
+        $grid->addRenderable($sprite);
 
         $result = $grid->renderToLines(startX: 0, startY:0, finishX: 3, finishY: 2);
 
@@ -57,8 +57,8 @@ describe('Render method', function () {
         $topLine = new Sprite(['ABC']);
         $bottomLine = new Sprite(['123']);
         $bottomLine->move(x: 0, y: 1);
-        $grid->addSprite($topLine);
-        $grid->addSprite($bottomLine);
+        $grid->addRenderable($topLine);
+        $grid->addRenderable($bottomLine);
 
         $result = $grid->renderToLines(startX: 0, startY:0, finishX: 2, finishY: 1);
 

@@ -4,7 +4,7 @@ namespace AndrewFeeney\Phlappy;
 
 class Grid
 {
-    public function __construct(private array $sprites = [])
+    public function __construct(private array $renderables = [])
     {
     }
 
@@ -16,8 +16,8 @@ class Grid
             $line = '';
             foreach (range($startX, $finishX) as $columnIndex) {
                 $character = ' ';
-                foreach ($this->sprites as $sprite) {
-                    $tile = $sprite->getTileAt($columnIndex, $lineIndex);
+                foreach ($this->renderables as $renderable) {
+                    $tile = $renderable->getTileAt($columnIndex, $lineIndex);
                     if ($tile->isEmpty()) {
                         continue;
                     }
@@ -31,8 +31,8 @@ class Grid
         return $lines;
     }
 
-    public function addSprite(Sprite $sprite)
+    public function addRenderable(Renderable $renderable)
     {
-        $this->sprites[] = $sprite;
+        $this->renderables[] = $renderable;
     }
 }

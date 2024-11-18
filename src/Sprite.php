@@ -2,7 +2,7 @@
 
 namespace AndrewFeeney\Phlappy;
 
-class Sprite
+class Sprite implements Renderable
 {
     private array $lines = [];
 
@@ -106,4 +106,3 @@ class Sprite
         return array_key_exists($this->yOffset($y), $this->lines);
     }
 }
-
