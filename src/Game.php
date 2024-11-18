@@ -13,22 +13,23 @@ class Game extends Prompt
     use SetsUpAndResets;
 
     private Grid $grid;
+    private Bird $bird;
 
     public function __construct()
     {
         $this->registerRenderer(Renderer::class);
 
-        $bird = new Sprite(['__o>__']);
+        $this->bird = new Bird();
 
         $initalHeight = $this->terminal()->lines();
         $initialWidth = $this->terminal()->cols();
 
-        $bird->move(
+        $this->bird->move(
             x: floor(($initialWidth - 5) / 2),
             y: floor(($initalHeight - 1) / 2),
         );
 
-        $this->grid = new Grid([$bird]);
+        $this->grid = new Grid([$this->bird]);
 
         $this->setup($this->run(...));
     }
