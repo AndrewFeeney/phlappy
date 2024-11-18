@@ -41,8 +41,8 @@ describe('Render method', function () {
     });
 });
 
-describe('renderTileAt method', function () {
-    it('can render the tile at a given set of coordinates', function () {
+describe('getTileAt method', function () {
+    it('can get the tile at a given set of coordinates', function () {
         $sprite = new Sprite();
         $sprite->addTile(x: 0, y: 0, character: '0');
         $sprite->addTile(x: 1, y: 0, character: '_');
@@ -51,16 +51,16 @@ describe('renderTileAt method', function () {
         $sprite->addTile(x: 1, y: 1, character: '_');
         $sprite->addTile(x: 2, y: 1, character: '/');
 
-        $result = $sprite->renderTileAt(x: 0, y: 0);
+        $result = $sprite->getTileAt(x: 0, y: 0)->render();
 
         expect($result)->toBe('0');
     });
 
-    it('renders an empty space if nothing is at the given set of coordinates', function () {
+    it('returns an empty tile if nothing is at the given set of coordinates', function () {
         $sprite = new Sprite();
 
-        $result = $sprite->renderTileAt(x: 0, y: 0);
+        $result = $sprite->getTileAt(x: 0, y: 0)->render();
 
-        expect($result)->toBe(' ');
+        expect($result)->toBe(null);
     });
 });

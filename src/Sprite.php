@@ -34,13 +34,6 @@ class Sprite
         return $output;
     }
 
-    public function renderTileAt(int $x, int $y): string
-    {
-        $tile = $this->getTileAt(x: $x, y: $y);
-
-        return $tile->render() ?? ' ';
-    }
-
     public function addTile(int $x, int $y, string $character): void
     {
         if (!$this->lineExists($y)) {
