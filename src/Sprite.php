@@ -23,13 +23,13 @@ class Sprite
     {
         $tile = $this->getTileAt(x: $x, y: $y);
 
-        return $tile->render();
+        return $tile->render() ?? ' ';
     }
 
     public function addTile(int $x, int $y, string $character): void
     {
-        if (!array_key_exists($y, $this->lines)) {
-            $this->lines[$y] = [];
+        if (!$this->lineExists($y)) {
+            $this->addLine($y);
         }
 
         $this->lines[$y][$x] = new Tile(character: $character);
@@ -37,6 +37,14 @@ class Sprite
 
     private function getTileAt(int $x, int $y): Tile
     {
+        if (!$this->lineExists($y)) {
+            return $this->getEmptyTile();
+        }
+
+        if (!array_key_exists($x, $this->lines[$y])) {
+            return $this->getEmptyTile();
+        }
+
         return $this->lines[$y][$x];
     }
 
@@ -49,6 +57,21 @@ class Sprite
         }
 
         return $line;
+    }
+
+    private function getEmptyTile(): Tile
+    {
+        return new Tile();
+    }
+
+    private function addLine(int $y): void
+    {
+        $this->lines[$y] = [];
+    }
+
+    private function lineExists(int $y): bool
+    {
+        return array_key_exists($y, $this->lines);
     }
 }
 

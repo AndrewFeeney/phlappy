@@ -8,7 +8,7 @@ class Tile
     {
     }
 
-    public function render(): string
+    public function render(): string|null
     {
         return $this->character;
     }
