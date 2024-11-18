@@ -12,9 +12,14 @@ class Game extends Prompt
     use RegistersRenderers;
     use SetsUpAndResets;
 
+    private Grid $grid;
+
     public function __construct()
     {
         $this->registerRenderer(Renderer::class);
+
+        $bird = new Sprite(['__o>__']);
+        $this->grid = new Grid([$bird]);
 
         $this->setup($this->run(...));
     }
@@ -22,6 +27,11 @@ class Game extends Prompt
     public function value(): mixed
     {
         return null;
+    }
+
+    public function grid(): Grid
+    {
+        return $this->grid;
     }
 
     public function run()

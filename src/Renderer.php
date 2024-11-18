@@ -14,10 +14,7 @@ class Renderer extends DefaultRenderer
         $height = $prompt->terminal()->lines();
         $width = $prompt->terminal()->cols();
 
-        $bird = new Sprite(['__o>__']);
-        $grid = new Grid([$bird]);
-
-        $lines = $grid->renderToLines(0, 0, $width - 1, $height - 3);
+        $lines = $prompt->grid()->renderToLines(0, 0, $width - 1, $height - 3);
 
         foreach ($lines as $line) {
             $this->line($line);
