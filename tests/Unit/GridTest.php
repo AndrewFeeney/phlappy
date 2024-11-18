@@ -30,4 +30,14 @@ describe('Render method', function () {
 
         expect($result)->toBe(['X',]);
     });
+
+    it('can render a 3x3 character sprite on a grid', function () {
+        $grid = new Grid();
+        $sprite = new Sprite(['ABC', '123']);
+        $grid->addSprite($sprite);
+
+        $result = $grid->renderToLines(startX: 0, startY:0, finishX: 2, finishY: 1);
+
+        expect($result)->toBe(['ABC', '123']);
+    });
 });

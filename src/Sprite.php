@@ -4,8 +4,19 @@ namespace AndrewFeeney\Phlappy;
 
 class Sprite
 {
-    public function __construct(private array $lines = [])
+    private array $lines = [];
+
+    public function __construct(array $initialLines = [])
     {
+        foreach ($initialLines as $line) {
+            $newLine = [];
+
+            foreach (str_split($line) as $character) {
+                $newLine[] = new Tile($character);
+            }
+
+            $this->lines[] = $newLine;
+        }
     }
 
     public function render(): array
