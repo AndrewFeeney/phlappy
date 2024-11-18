@@ -6,6 +6,10 @@ class Sprite
 {
     private array $lines = [];
 
+    private int $xOffset = 0;
+
+    private int $yOffset = 0;
+
     public function __construct(array $initialLines = [])
     {
         foreach ($initialLines as $line) {
@@ -46,17 +50,40 @@ class Sprite
         $this->lines[$y][$x] = new Tile(character: $character);
     }
 
+    public function move(int $x, int $y): void
+    {
+        $this->xOffset -= $x;
+        $this->yOffset -= $y;
+    }
+
+    private function yOffset(int $y = 0)
+    {
+        return $this->yOffset + $y;
+    }
+
+    private function xOffset(int $x = 0)
+    {
+        return $this->xOffset + $x;
+    }
+
     private function getTileAt(int $x, int $y): Tile
     {
         if (!$this->lineExists($y)) {
             return $this->getEmptyTile();
         }
 
-        if (!array_key_exists($x, $this->lines[$y])) {
+        $line = $this->getLine($y);
+
+        if (!array_key_exists($this->xOffset($x), $line)) {
             return $this->getEmptyTile();
         }
 
-        return $this->lines[$y][$x];
+        return $line[$this->xOffset($x)];
+    }
+
+    private function getLine(int $y): array
+    {
+        return $this->lines[$this->yOffset($y)];
     }
 
     private function renderLine(array $tiles): string
@@ -82,7 +109,7 @@ class Sprite
 
     private function lineExists(int $y): bool
     {
-        return array_key_exists($y, $this->lines);
+        return array_key_exists($this->yOffset($y), $this->lines);
     }
 }
 

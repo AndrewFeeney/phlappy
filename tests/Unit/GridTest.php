@@ -40,4 +40,15 @@ describe('Render method', function () {
 
         expect($result)->toBe(['ABC', '123']);
     });
+
+    it('can render a 3x3 character sprite with an offset on a grid', function () {
+        $grid = new Grid();
+        $sprite = new Sprite(['ABC', '123']);
+        $sprite->move(x: 1, y: 1);
+        $grid->addSprite($sprite);
+
+        $result = $grid->renderToLines(startX: 0, startY:0, finishX: 3, finishY: 2);
+
+        expect($result)->toBe(['    ', ' ABC', ' 123']);
+    });
 });
