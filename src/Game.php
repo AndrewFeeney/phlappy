@@ -19,6 +19,15 @@ class Game extends Prompt
         $this->registerRenderer(Renderer::class);
 
         $bird = new Sprite(['__o>__']);
+
+        $initalHeight = $this->terminal()->lines();
+        $initialWidth = $this->terminal()->cols();
+
+        $bird->move(
+            x: floor(($initialWidth - 5) / 2),
+            y: floor(($initalHeight - 1) / 2),
+        );
+
         $this->grid = new Grid([$bird]);
 
         $this->setup($this->run(...));
