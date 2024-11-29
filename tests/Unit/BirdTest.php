@@ -8,6 +8,7 @@ describe('Bird object', function () {
         $initialHeightInRows = 50;
 
         $bird = new Bird($initialWidthInColumns, $initialHeightInRows);
+
         expect($bird->xOffset())->toBe(0 - ($initialWidthInColumns / 2) + $bird->width());
         expect($bird->yOffset())->toBe(($initialHeightInRows / 2) - $bird->height());
     });

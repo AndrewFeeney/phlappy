@@ -25,7 +25,7 @@ class Bird implements Renderable
         $this->altitude = floor($this->groundLevel / 2) * self::LINE_HEIGHT;
         $this->yOffset = $this->calculateYOffset();
 
-        $initialLines = ['__0>__'];
+        $initialLines = ['__o>__'];
 
         foreach ($initialLines as $line) {
             $newLine = [];
@@ -78,7 +78,7 @@ class Bird implements Renderable
 
     public function width(): int
     {
-        return 5;
+        return 6;
     }
 
     public function yOffset(int $y = 0)
@@ -104,17 +104,6 @@ class Bird implements Renderable
     private function getLine(int $y): array
     {
         return $this->lines[$this->yOffset($y)];
-    }
-
-    private function renderLine(array $tiles): string
-    {
-        $line = '';
-
-        foreach ($tiles as $tile) {
-            $line .= $tile->render();
-        }
-
-        return $line;
     }
 
     private function getEmptyTile(): Tile
