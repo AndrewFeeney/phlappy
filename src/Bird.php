@@ -38,26 +38,6 @@ class Bird implements Renderable
         }
     }
 
-    public function render(): array
-    {
-        $output = [];
-
-        foreach ($this->lines as $line) {
-            $output[] = $this->renderLine($line);
-        }
-
-        return $output;
-    }
-
-    public function addTile(int $x, int $y, string $character): void
-    {
-        if (!$this->lineExists($y)) {
-            $this->addLine($y);
-        }
-
-        $this->lines[$y][$x] = new Tile(character: $character);
-    }
-
     public function move(int $x, int $y): void
     {
         $this->xOffset -= $x;
@@ -131,11 +111,6 @@ class Bird implements Renderable
     private function getEmptyTile(): Tile
     {
         return new Tile();
-    }
-
-    private function addLine(int $y): void
-    {
-        $this->lines[$y] = [];
     }
 
     private function lineExists(int $y): bool

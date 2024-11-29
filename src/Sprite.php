@@ -23,17 +23,6 @@ class Sprite implements Renderable
         }
     }
 
-    public function render(): array
-    {
-        $output = [];
-
-        foreach ($this->lines as $line) {
-            $output[] = $this->renderLine($line);
-        }
-
-        return $output;
-    }
-
     public function addTile(int $x, int $y, string $character): void
     {
         if (!$this->lineExists($y)) {
