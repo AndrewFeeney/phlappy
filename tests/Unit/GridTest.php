@@ -31,7 +31,7 @@ describe('Render method', function () {
         expect($result)->toBe(['X',]);
     });
 
-    it('can render a 3x3 character sprite on a grid', function () {
+    it('can render a 3x2 character sprite on a grid', function () {
         $grid = new Grid();
         $sprite = new Sprite(['ABC', '123']);
         $grid->addRenderable($sprite);
@@ -41,7 +41,7 @@ describe('Render method', function () {
         expect($result)->toBe(['ABC', '123']);
     });
 
-    it('can render a 3x3 character sprite with an offset on a grid', function () {
+    it('can render a 3x2 character sprite with an offset on a grid', function () {
         $grid = new Grid();
         $sprite = new Sprite(['ABC', '123']);
         $sprite->move(x: 1, y: 1);
