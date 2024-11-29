@@ -53,6 +53,15 @@ class Sprite implements Renderable
         return $line[$this->xOffset($x)];
     }
 
+    public function width(): int
+    {
+        return collect($this->lines)->reduce(fn ($max, $line) => max($max, count($line)), 0);
+    }
+
+    public function height(): int
+    {
+        return count($this->lines);
+    }
 
     private function yOffset(int $y = 0)
     {

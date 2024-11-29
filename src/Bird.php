@@ -21,7 +21,7 @@ class Bird implements Renderable
     public function __construct($initialWidth, $initialHeight)
     {
         $this->groundLevel = $initialHeight - 3;
-        $this->xOffset = floor(($initialWidth / 2) - 5);
+        $this->xOffset = floor(($initialWidth / 2) - $this->width());
         $this->altitude = floor($this->groundLevel / 2) * self::LINE_HEIGHT;
         $this->yOffset = $this->calculateYOffset();
 
@@ -71,6 +71,15 @@ class Bird implements Renderable
         return $line[$this->xOffset($x)];
     }
 
+    public function height(): int
+    {
+        return 1;
+    }
+
+    public function width(): int
+    {
+        return 5;
+    }
 
     public function yOffset(int $y = 0)
     {
