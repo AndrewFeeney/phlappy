@@ -19,15 +19,10 @@ class Game extends Prompt
     {
         $this->registerRenderer(Renderer::class);
 
-        $this->bird = new Bird();
-
-        $initalHeight = $this->terminal()->lines();
+        $initialHeight = $this->terminal()->lines();
         $initialWidth = $this->terminal()->cols();
 
-        $this->bird->move(
-            x: floor(($initialWidth - 5) / 2),
-            y: floor(($initalHeight - 1) / 2),
-        );
+        $this->bird = new Bird($initialWidth, $initialHeight);
 
         $this->grid = new Grid([$this->bird]);
 
@@ -44,15 +39,26 @@ class Game extends Prompt
         return $this->grid;
     }
 
+    public function bird(): Bird
+    {
+        return $this->bird;
+    }
+
     public function run()
     {
         $listener = KeyPressListener::for($this)
+            ->onLeft(fn () => $this->bird->move(1, 0))
+            ->onRight(fn () => $this->bird->move(-1, 0))
+            ->onUp(fn () => $this->bird->flap())
+            ->on(' ', fn () => $this->bird->flap())
             ->listenForQuit();
 
         while (true) {
             $listener->once();
 
             $this->render();
+
+            $this->bird->fall();
 
             usleep(2_000);
         }
