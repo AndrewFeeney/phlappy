@@ -14,6 +14,7 @@ class Game extends Prompt
 
     private Grid $grid;
     private Bird $bird;
+    private array $pipes;
 
     public function __construct()
     {
@@ -23,8 +24,22 @@ class Game extends Prompt
         $initialWidth = $this->terminal()->cols();
 
         $this->bird = new Bird($initialWidth, $initialHeight);
+        $pipe = new Sprite([
+            '___________',
+            '|         |',
+            '|_________|',
+            ' ||     ||',
+            ' ||     ||',
+            ' ||     ||',
+            ' ||     ||',
+            ' ||     ||',
+            ' ||     ||',
+        ]);
 
-        $this->grid = new Grid([$this->bird]);
+        $pipe->move($initialWidth + $pipe->width(), -$initialHeight + 3);
+        $this->pipes = [$pipe];
+
+        $this->grid = new Grid([$this->bird, ...$this->pipes]);
 
         $this->setup($this->run(...));
     }
@@ -53,12 +68,21 @@ class Game extends Prompt
             ->on(' ', fn () => $this->bird->flap())
             ->listenForQuit();
 
+        $tick = 0;
+
         while (true) {
+            $tick++;
             $listener->once();
 
             $this->render();
 
             $this->bird->fall();
+
+            foreach ($this->pipes as $pipe) {
+                if ($tick % 4 === 0) {
+                    $pipe->move(-1, 0);
+                }
+            }
 
             usleep(2_000);
         }

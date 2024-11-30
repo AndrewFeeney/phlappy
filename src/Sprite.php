@@ -12,7 +12,7 @@ class Sprite implements Renderable
 
     public function __construct(array $initialLines = [])
     {
-        foreach ($initialLines as $line) {
+        foreach (array_reverse($initialLines) as $line) {
             $newLine = [];
 
             foreach (str_split($line) as $character) {
