@@ -78,17 +78,6 @@ class Sprite implements Renderable
         return $this->lines[$this->yOffset($y)];
     }
 
-    private function renderLine(array $tiles): string
-    {
-        $line = '';
-
-        foreach ($tiles as $tile) {
-            $line .= $tile->render();
-        }
-
-        return $line;
-    }
-
     private function getEmptyTile(): Tile
     {
         return new Tile();
