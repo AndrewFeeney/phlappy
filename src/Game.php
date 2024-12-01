@@ -14,7 +14,8 @@ class Game extends Prompt
 
     private Grid $grid;
     private Bird $bird;
-    private array $pipes;
+    private array $pipes = [];
+    private int $tick = 0;
 
     public function __construct()
     {
@@ -24,22 +25,8 @@ class Game extends Prompt
         $initialWidth = $this->terminal()->cols();
 
         $this->bird = new Bird($initialWidth, $initialHeight);
-        $pipe = new Sprite([
-            '___________',
-            '|         |',
-            '|_________|',
-            ' ||     ||',
-            ' ||     ||',
-            ' ||     ||',
-            ' ||     ||',
-            ' ||     ||',
-            ' ||     ||',
-        ]);
 
-        $pipe->move($initialWidth + $pipe->width(), -$initialHeight + 3);
-        $this->pipes = [$pipe];
-
-        $this->grid = new Grid([$this->bird, ...$this->pipes]);
+        $this->grid = new Grid([$this->bird]);
 
         $this->setup($this->run(...));
     }
@@ -52,6 +39,11 @@ class Game extends Prompt
     public function grid(): Grid
     {
         return $this->grid;
+    }
+
+    public function pipes(): array
+    {
+        return $this->pipes;
     }
 
     public function bird(): Bird
@@ -68,23 +60,51 @@ class Game extends Prompt
             ->on(' ', fn () => $this->bird->flap())
             ->listenForQuit();
 
-        $tick = 0;
-
         while (true) {
-            $tick++;
+            $this->tick++;
             $listener->once();
 
             $this->render();
 
             $this->bird->fall();
 
-            foreach ($this->pipes as $pipe) {
-                if ($tick % 4 === 0) {
-                    $pipe->move(-1, 0);
-                }
-            }
+            $this->handlePipes();
 
             usleep(2_000);
         }
+    }
+
+    private function handlePipes()
+    {
+        if (count($this->pipes) < 1) {
+            $pipe = new Sprite([
+                '___________',
+                '|         |',
+                '|_________|',
+                ' ||     ||',
+                ' ||     ||',
+                ' ||     ||',
+                ' ||     ||',
+                ' ||     ||',
+                ' ||     ||',
+            ]);
+
+            $pipe->move($this->terminal()->cols() + $pipe->width(), -$this->terminal()->lines() + 3);
+            $this->pipes[] = $pipe;
+            $this->grid->addRenderable($pipe);
+        }
+
+        foreach ($this->pipes as $index => $pipe) {
+            if ($this->tick % 4 === 0) {
+                $pipe->move(-1, 0);
+            }
+
+            if ($pipe->xOffset() - $pipe->width() > 0) {
+                $this->grid->removeRenderable($pipe);
+                unset($this->pipes[$index]);
+            }
+        }
+
+        $this->pipes = array_values($this->pipes);
     }
 }

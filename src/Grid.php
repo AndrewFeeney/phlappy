@@ -4,7 +4,7 @@ namespace AndrewFeeney\Phlappy;
 
 class Grid
 {
-    public function __construct(private array $renderables = [])
+    public function __construct(private array $renderables = [], private $renderablesManifest = [])
     {
     }
 
@@ -34,5 +34,14 @@ class Grid
     public function addRenderable(Renderable $renderable)
     {
         $this->renderables[] = $renderable;
+    }
+
+    public function removeRenderable(Renderable $renderable)
+    {
+        foreach ($this->renderables as $index => $gridRenderable) {
+            if ($gridRenderable->id() === $renderable->id()) {
+                unset($this->renderables[$index]);
+            }
+        }
     }
 }

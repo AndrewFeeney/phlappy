@@ -31,12 +31,14 @@ class Renderer extends DefaultRenderer
         $row = $this->dim(' Row: ') . $this->bold($phlappy->bird()->yOffset());
         $x = $this->dim(' x: ') . $this->bold($phlappy->bird()->xOffset());
         $rateOfClimb = $this->dim(' Rate of Climb: '). $this->bold($phlappy->bird()->rateOfClimb());
+        $totalPipes = $this->dim(' Total Pipes: '). $this->bold(count($phlappy->pipes()));
 
         $this->line($this->bgBlue($this->spaceBetween($width, ...[
             $altitude,
             $x,
             $row,
             $rateOfClimb,
+            $totalPipes,
         ])));
     }
 }

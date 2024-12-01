@@ -6,11 +6,11 @@ class Sprite implements Renderable
 {
     private array $lines = [];
 
-    private int $xOffset = 0;
+    private int $xOffset;
 
-    private int $yOffset = 0;
+    private int $yOffset;
 
-    public function __construct(array $initialLines = [])
+    public function __construct(array $initialLines = [], int $initialXOffset = 0, int $initialYOffset = 0)
     {
         foreach (array_reverse($initialLines) as $line) {
             $newLine = [];
@@ -21,6 +21,9 @@ class Sprite implements Renderable
 
             $this->lines[] = $newLine;
         }
+
+        $this->xOffset = $initialXOffset;
+        $this->yOffset = $initialYOffset;
     }
 
     public function addTile(int $x, int $y, string $character): void
@@ -63,14 +66,19 @@ class Sprite implements Renderable
         return count($this->lines);
     }
 
-    private function yOffset(int $y = 0)
+    public function yOffset(int $y = 0)
     {
         return $this->yOffset + $y;
     }
 
-    private function xOffset(int $x = 0)
+    public function xOffset(int $x = 0)
     {
         return $this->xOffset + $x;
+    }
+
+    public function id(): int
+    {
+        return random_int(0, PHP_INT_MAX);
     }
 
     private function getLine(int $y): array

@@ -33,6 +33,11 @@ class Bird implements Renderable
         $this->tilesRaisedWings = $this->loadTilesFromString('¯\\o>/¯');
     }
 
+    public function id(): int
+    {
+        return random_int(0, PHP_INT_MAX);
+    }
+
     public function move(int $x, int $y): void
     {
         $this->xOffset -= $x;
