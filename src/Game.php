@@ -85,17 +85,7 @@ class Game extends Prompt
     private function handlePipes()
     {
         if (count($this->pipes) < 1) {
-            $pipe = new Sprite(array_reverse([
-                '___________',
-                '|         |',
-                '|_________|',
-                ' ||     ||',
-                ' ||     ||',
-                ' ||     ||',
-                ' ||     ||',
-                ' ||     ||',
-                ' ||     ||',
-            ]));
+            $pipe = new Pipe(6);
 
             $pipe->move($this->terminal()->cols() + $pipe->width(), -$this->terminal()->lines() + 3);
             $this->pipes[] = $pipe;
