@@ -77,7 +77,8 @@ class Game extends Prompt
 
             $this->handlePipes();
 
-            usleep(2_000);
+            $this->latency = microtime(true) - $time;
+            usleep((int) max(0, 2000 - $this->latency * 1_000_000));
         }
     }
 
