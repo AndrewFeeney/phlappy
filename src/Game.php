@@ -16,6 +16,7 @@ class Game extends Prompt
     private Bird $bird;
     private array $pipes = [];
     private int $tick = 0;
+    private float $latency = 0;
 
     public function __construct()
     {
@@ -51,6 +52,11 @@ class Game extends Prompt
         return $this->bird;
     }
 
+    public function latency(): float
+    {
+        return $this->latency;
+    }
+
     public function run()
     {
         $listener = KeyPressListener::for($this)
@@ -61,6 +67,7 @@ class Game extends Prompt
             ->listenForQuit();
 
         while (true) {
+            $time = microtime(true);
             $this->tick++;
             $listener->once();
 

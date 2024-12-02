@@ -32,6 +32,7 @@ class Renderer extends DefaultRenderer
         $x = $this->dim(' x: ') . $this->bold($phlappy->bird()->xOffset());
         $rateOfClimb = $this->dim(' Rate of Climb: '). $this->bold($phlappy->bird()->rateOfClimb());
         $totalPipes = $this->dim(' Total Pipes: '). $this->bold(count($phlappy->pipes()));
+        $latency = $this->dim(' Latency '). $this->bold(round($phlappy->latency() * 1000) .'ms');
 
         $this->line($this->bgBlue($this->spaceBetween($width, ...[
             $altitude,
@@ -39,6 +40,7 @@ class Renderer extends DefaultRenderer
             $row,
             $rateOfClimb,
             $totalPipes,
+            $latency,
         ])));
     }
 }
