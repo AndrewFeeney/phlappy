@@ -31,6 +31,30 @@ describe('Render method', function () {
         expect($result)->toBe(['X',]);
     });
 
+    it('can render a single character sprite which has been moved to the right on a grid', function () {
+        $grid = new Grid();
+        $sprite = new Sprite();
+        $sprite->addTile(x: 0, y: 0, character: 'X');
+        $sprite->move(1, 0);
+        $grid->addRenderable($sprite);
+
+        $result = $grid->renderToLines(startX: 0, startY:0, finishX: 1, finishY: 0);
+
+        expect($result)->toBe([' X',]);
+    });
+
+    it('can render a single character sprite which has been moved down on a grid', function () {
+        $grid = new Grid();
+        $sprite = new Sprite();
+        $sprite->addTile(x: 0, y: 0, character: 'X');
+        $sprite->move(0, 1);
+        $grid->addRenderable($sprite);
+
+        $result = $grid->renderToLines(startX: 0, startY:0, finishX: 0, finishY: 1);
+
+        expect($result)->toBe([' ', 'X']);
+    });
+
     it('can render a 3x2 character sprite on a grid', function () {
         $grid = new Grid();
         $sprite = new Sprite(['ABC', '123']);
